@@ -44,9 +44,7 @@ rem 清除发布目录
 :ClearFiles
   set /p clear_project_folder=Clear all project files?[y/n]:
   if "%clear_project_folder%"=="y" (
-    if exist %release_root_path%cdn rd %release_root_path%cdn /Q /S
-    if exist %release_root_path%chat rd %release_root_path%chat /Q /S
-    if exist %release_root_path%cn rd %release_root_path%cn /Q /S
+    if exist %release_root_path%release rd %release_root_path%release /Q /S
     echo.
     echo All peoject files removed!
     echo.
@@ -73,14 +71,12 @@ GOTo RETURNMENU
 
 rem 发布指定的项目
 :ReleaseProject
-  set release_project_path=%release_root_path%%project_name%\
-  set cdn_path=%release_root_path%cdn\dist\
+  set cdn_path=%release_root_path%release\cdn\dist\
   set cdn_project_path=%cdn_path%%project_name%\
   set cdn_common_path=%cdn_path%common\
   echo.
   echo Project Name              = %project_name%
   echo Project Dist Path         = %dist_path%
-  echo Release Project Path      = %release_project_path%
   echo Release CDN Path          = %cdn_path%
   echo Release CDN Project Path  = %cdn_project_path%
   echo Release CDN Common Path   = %cdn_common_path%
@@ -103,12 +99,11 @@ rem 发布指定的项目
 
   rem 创建不存在的文件夹
   if not exist %cdn_path% md %cdn_path%
-  if not exist %release_project_path% md %release_project_path%
   if not exist %cdn_project_path% md %cdn_project_path%
   if not exist %cdn_common_path% md %cdn_common_path%
 
   rem 复制项目的index.html到发布目录
-  copy %dist_path%index.html %release_project_path%
+  copy %dist_path%index.html %release_root_path%release\index.html.%project_name%
   echo.
 
   rem 复制项目静态资源到发布目录
