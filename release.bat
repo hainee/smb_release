@@ -11,33 +11,33 @@ set project_name=cn
 set project_id=
 set release_all_flag=0
 set release_all_use_default_path=y
+color 0a
 
 :MENU
-color 0a
-echo ==================SMB Projects Release Manager========================
-echo Project will release to folder "%release_root_path%"
-echo SMB Login path = %smb_login_path%
-echo SMB Main path = %smb_main_path%
-echo.
-echo *Select a release item*
-ECHO.
-ECHO [1] Release SMB Login (Project Name:cn)
-ECHO [2] Release SMB Main  (Project Name:chat)
-ECHO [3] Release ALL  
-ECHO [4] Clear Files  
-ECHO.
-ECHO [8] Exit Script
-ECHO [9] Close Command Prompt
-ECHO.
+  echo ==================SMB Projects Release Manager========================
+  echo Project will release to folder "%release_root_path%"
+  echo SMB Login path = %smb_login_path%
+  echo SMB Main path = %smb_main_path%
+  echo.
+  echo *Select a release item*
+  ECHO.
+  ECHO [1] Release SMB Login (Project Name:cn)
+  ECHO [2] Release SMB Main  (Project Name:chat)
+  ECHO [3] Release ALL  
+  ECHO [4] Clear Files  
+  ECHO.
+  ECHO [8] Exit Script
+  ECHO [9] Close Command Prompt
+  ECHO.
 
-set /p id=Select Item = [1/2/3/8/9]:
-IF "%id%"=="1" GOTO ReleaseSMBLogin
-IF "%id%"=="2" GOTO ReleaseSMBMain
-IF "%id%"=="3" GOTO ReleaseAll
-IF "%id%"=="4" GOTO ClearFiles
-IF "%id%"=="8" GOTO QUIT
-IF "%id%"=="9" Exit
-cls
+  set /p id=Select Item = [1/2/3/8/9]:
+  IF "%id%"=="1" GOTO ReleaseSMBLogin
+  IF "%id%"=="2" GOTO ReleaseSMBMain
+  IF "%id%"=="3" GOTO ReleaseAll
+  IF "%id%"=="4" GOTO ClearFiles
+  IF "%id%"=="8" GOTO QUIT
+  IF "%id%"=="9" Exit
+  cls
 GOTO RETURNMENU
 
 rem 清除发布目录
@@ -138,7 +138,6 @@ rem 发布指定的项目
 
 rem 发布SMB Login站点
 :ReleaseSMBLogin
-  rem 获取SMB Login项目的发布参数
   set default_path=
   set project_id=SMB Login
   if "%release_all_use_default_path%"=="n" (
@@ -161,7 +160,6 @@ rem 发布SMB Login站点
 
 rem 发布SMB Main站点
 :ReleaseSMBMain
-  rem 获取SMB Main项目的发布参数
   set default_path=
   set project_id=SMB Main
   if "%release_all_use_default_path%"=="n" (
