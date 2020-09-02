@@ -4,8 +4,8 @@ cls
 TITLE SMB Projects Release Manager
 
 set release_root_path=%~dp0
-set smb_login_path=..\smb_login\code\v1
-set smb_main_path=..\smb_main\code\v1
+set smb_login_path=%release_root_path%..\smb_login\code\v1
+set smb_main_path=%release_root_path%..\smb_main\code\v1
 set dist_path=.\dist
 set project_name=cn
 set project_id=
@@ -16,7 +16,8 @@ set release_all_use_default_path=y
 color 0a
 echo ==================SMB Projects Release Manager========================
 echo Project will release to folder "%release_root_path%"
-
+echo SMB Login path = %smb_login_path%
+echo SMB Main path = %smb_main_path%
 echo.
 echo *Select a release item*
 ECHO.
