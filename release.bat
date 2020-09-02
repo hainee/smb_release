@@ -24,6 +24,7 @@ ECHO.
 ECHO [1] Release SMB Login (Project Name:cn)
 ECHO [2] Release SMB Main  (Project Name:chat)
 ECHO [3] Release ALL  
+ECHO [4] Clear Files  
 ECHO.
 ECHO [8] Exit Script
 ECHO [9] Close Command Prompt
@@ -33,9 +34,24 @@ set /p id=Select Item = [1/2/3/8/9]:
 IF "%id%"=="1" GOTO ReleaseSMBLogin
 IF "%id%"=="2" GOTO ReleaseSMBMain
 IF "%id%"=="3" GOTO ReleaseAll
+IF "%id%"=="4" GOTO ClearFiles
 IF "%id%"=="8" GOTO QUIT
 IF "%id%"=="9" Exit
 cls
+GOTO RETURNMENU
+
+rem 清除发布目录
+:ClearFiles
+  set /p clear_project_folder=Clear all project files?[y/n]:
+  if "%clear_project_folder%"=="y" (
+    if exist %release_root_path%cdn rd %release_root_path%cdn /Q /S
+    if exist %release_root_path%chat rd %release_root_path%chat /Q /S
+    if exist %release_root_path%cn rd %release_root_path%cn /Q /S
+    echo.
+    echo All peoject files removed!
+    echo.
+    PAUSE
+  )
 GOTO RETURNMENU
 
 rem 发布所有站点
@@ -116,8 +132,7 @@ rem 发布指定的项目
     GOTO ReleaseSMBMain
   ) else if %release_all_flag%==2 (
     set release_all_flag=0
-    PAUSE
-    GOTO RETURNMENU
+    GOTO MENU
   )
   
 
