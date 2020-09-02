@@ -30,7 +30,7 @@ color 0a
   ECHO [9] Close Command Prompt
   ECHO.
 
-  set /p id=Select Item = [1/2/3/8/9]:
+  set /p id=Select Item = [1/2/3/4/8/9]:
   IF "%id%"=="1" GOTO ReleaseSMBLogin
   IF "%id%"=="2" GOTO ReleaseSMBMain
   IF "%id%"=="3" GOTO ReleaseAll
