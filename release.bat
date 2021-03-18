@@ -72,6 +72,8 @@ GOTo RETURNMENU
 
 rem 发布指定的项目
 :ReleaseProject
+  git pull origin
+  
   set cdn_path=%release_root_path%release\dist\
   set cdn_project_path=%cdn_path%%project_name%\
   set cdn_common_path=%cdn_path%common\
