@@ -140,6 +140,9 @@ rem 发布指定的项目
       rd /s/q %cdn_common_path%help
   )
 
+  git commit -a -m 自动发布
+  git push origin
+
   echo.
   echo *******************************************************************************************
   echo                            Project "%project_id%" release complete!
