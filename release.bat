@@ -3,6 +3,7 @@ rem SMB站点发布脚本——Hainee 2020-09
 cls
 TITLE SMB Projects Release Manager
 
+set main_version=1.3.
 set release_root_path=%~dp0
 set smb_login_path=%release_root_path%..\smb_login\code\v1
 set smb_main_path=%release_root_path%..\smb_main\code\v1
@@ -82,18 +83,32 @@ rem 发布指定的项目
   echo Release CDN Common Path   = %cdn_common_path%
   echo.
   if %release_all_flag%==0 (
+    if "%project_id%"=="SMB Main" (
+    for /f "delims=" %%i in (%release_root_path%version.js) do (set cur_version=%%i)&(goto CONFIRM_VERSION)
+:CONFIRM_VERSION
+    SET cur_version=%cur_version:~27,-1%
+    SET old_small_version=%cur_version:~4,3%
+    SET /a new_small_version=%old_small_version%+1
+    SET version=
+    SET /p version=Version[%main_version%%old_small_version% ^>^> %main_version%%new_small_version%]?:%main_version%
+    if [%version%]==[] (
+        SET version=%new_small_version%
+    )
+    ECHO New Version = %main_version%%version%
+    )
 :CONFIRM_RELEASE
     set /p confirm_release=Confirm release?[y/n]:
     if "%confirm_release%"=="n" (
       GOTO RETURNMENU
-    ) else if "%confirm_release%"=="y" (
+    ) else (
       echo.
       echo *******************************************************************************************
       echo                            Start release project %project_id%
       echo *******************************************************************************************
       echo.
-    ) else (
-      GOTO CONFIRM_RELEASE
+      if "%project_id%"=="SMB Main" (
+          ECHO window.SMB_CORE_VERSION = '%main_version%%version%'>%release_root_path%version.js
+      )
     )
   )
 
@@ -112,6 +127,18 @@ rem 发布指定的项目
 
   rem 复制项目公共资源到发布目录
   xcopy %dist_path%common %cdn_common_path% /s /y
+
+  rem 复制版本文件到发布目录
+  ECHO.
+  ECHO Copy Version.js
+  copy %release_root_path%version.js %cdn_common_path%js\version.js
+
+  if "%project_id%"=="SMB Main" (
+      rem 删除help目录
+      ECHO.
+      ECHO Remove help folder
+      rd /s/q %cdn_common_path%help
+  )
 
   echo.
   echo *******************************************************************************************
