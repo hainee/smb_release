@@ -2,7 +2,7 @@
 rem SMB站点发布脚本——Hainee 2020-09
 cls
 TITLE SMB Projects Release Manager
-
+cd %~dp0
 set main_version=1.3.
 set release_root_path=%~dp0
 set smb_login_path=%release_root_path%..\smb_login\code\v1
