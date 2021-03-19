@@ -13,6 +13,10 @@ set project_id=
 set release_all_flag=0
 set release_all_use_default_path=y
 color 0a
+echo.
+echo Pulling from git...
+git pull origin
+cls
 
 :MENU
   echo ==================SMB Projects Release Manager========================
