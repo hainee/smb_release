@@ -148,7 +148,7 @@ rem 发布指定的项目
   rem 正在压缩dist
   ECHO.
   ECHO Creating dist.zip...
-  SET distZipFile = .\release\dist.zip
+  SET distZipFile=.\release\dist.zip
   if exist %distZipFile% (
     rd %distZipFile%
   )
