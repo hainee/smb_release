@@ -145,11 +145,16 @@ rem 发布指定的项目
   git commit -a -m "Auto Publish"
   git push origin
 
-  echo.
-  echo *******************************************************************************************
-  echo                            Project "%project_id%" release complete!
-  echo *******************************************************************************************
-  echo.
+  rem 正在压缩dist
+  ECHO.
+  ECHO 正在压缩dist...
+  7z a -tzip dist.zip "%dist_path%" -r -mx=5
+
+  ECHO.
+  ECHO *******************************************************************************************
+  ECHO                            Project "%project_id%" release complete!
+  ECHO *******************************************************************************************
+  ECHO.
 
   if %release_all_flag%==0 (
     PAUSE
