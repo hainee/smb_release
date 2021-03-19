@@ -147,8 +147,12 @@ rem 发布指定的项目
 
   rem 正在压缩dist
   ECHO.
-  ECHO 正在压缩dist...
-  7z a -tzip .\release\dist.zip "%dist_path%" -r -mx=5
+  ECHO Creating dist.zip...
+  SET distZipFile = .\release\dist.zip
+  if exist %distZipFile% (
+    rd %distZipFile%
+  )
+  7z a -tzip %distZipFile% "%dist_path%" -r -mx=5
 
   ECHO.
   ECHO *******************************************************************************************
