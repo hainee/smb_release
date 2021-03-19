@@ -142,7 +142,8 @@ rem 发布指定的项目
   if "%project_id%"=="SMB Main" (
       rem 删除help目录
       ECHO.
-      ECHO Remove help folder
+      ECHO Removing help folder...
+      ECHO.
       rd /s/q %cdn_common_path%help
   )
 
