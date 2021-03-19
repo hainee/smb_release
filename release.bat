@@ -148,7 +148,7 @@ rem 发布指定的项目
   rem 正在压缩dist
   ECHO.
   ECHO 正在压缩dist...
-  7z a -tzip dist.zip "%dist_path%" -r -mx=5
+  7z a -tzip .\release\dist.zip "%dist_path%" -r -mx=5
 
   ECHO.
   ECHO *******************************************************************************************
