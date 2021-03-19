@@ -153,7 +153,6 @@ rem 发布指定的项目
     rd %distZipFile%
   )
   7z a -tzip %distZipFile% "%release_root_path%\release\dist" -r -mx=5
-  explorer %release_root_path%\release\
   ECHO.
   ECHO *******************************************************************************************
   ECHO                            Project "%project_id%" release complete!
