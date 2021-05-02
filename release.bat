@@ -195,7 +195,7 @@ rem 发布CN Login站点
   
   echo Current %project_id% project path = %cn_path%
   set dist_path=%cn_path%\dist\
-  set project_name=cn login
+  set project_name=cn
   GOTO ReleaseProject
 
 rem 发布Core Main站点
@@ -216,7 +216,7 @@ rem 发布Core Main站点
   
   echo Current %project_id% project path = %core_path%
   set dist_path=%core_path%\dist\
-  set project_name=core main
+  set project_name=core
   GOTO ReleaseProject
 
 :RETURNMENU
