@@ -3,10 +3,10 @@ rem SMB站点发布脚本——Hainee 2020-09
 cls
 TITLE SMB Projects Release Manager
 cd %~dp0
-set main_version=1.3.
+set main_version=0.0.
 set release_root_path=%~dp0
-set smb_login_path=%release_root_path%..\smb_login\code\v1
-set smb_main_path=%release_root_path%..\smb_main\code\v1
+set cn_path=%release_root_path%..\time_in_chat_cn\code
+set core_path=%release_root_path%..\timein-chat-web-core\code
 set dist_path=.\dist
 set project_name=cn
 set project_id=
@@ -21,13 +21,13 @@ cls
 :MENU
   echo ==================SMB Projects Release Manager========================
   echo Project will release to folder "%release_root_path%"
-  echo SMB Login path = %smb_login_path%
-  echo SMB Main path = %smb_main_path%
+  echo CN Login path = %cn_path%
+  echo Core Main path = %core_path%
   echo.
   echo *Select a release item*
   ECHO.
-  ECHO [1] Release SMB Login (Project Name:cn)
-  ECHO [2] Release SMB Main  (Project Name:chat)
+  ECHO [1] Release CN Login (Project Name:cn)
+  ECHO [2] Release Core Main  (Project Name:chat)
   ECHO [3] Release ALL  
   ECHO [4] Clear Files  
   ECHO.
@@ -36,8 +36,8 @@ cls
   ECHO.
 
   set /p id=Select Item = [1/2/3/4/8/9]:
-  IF "%id%"=="1" GOTO ReleaseSMBLogin
-  IF "%id%"=="2" GOTO ReleaseSMBMain
+  IF "%id%"=="1" GOTO ReleaseCNLogin
+  IF "%id%"=="2" GOTO ReleaseCoreMain
   IF "%id%"=="3" GOTO ReleaseAll
   IF "%id%"=="4" GOTO ClearFiles
   IF "%id%"=="8" GOTO QUIT
@@ -71,7 +71,7 @@ rem 发布所有站点
   ) else (
     GOTO ReleaseAll
   )
-  GOTO ReleaseSMBLogin
+  GOTO ReleaseCNLogin
 GOTo RETURNMENU
 
 rem 发布指定的项目
@@ -89,7 +89,7 @@ rem 发布指定的项目
   echo Release CDN Common Path   = %cdn_common_path%
   echo.
   if %release_all_flag%==0 (
-    if "%project_id%"=="SMB Main" (
+    if "%project_id%"=="Core Main" (
     for /f "delims=" %%i in (%release_root_path%version.js) do (set cur_version=%%i)&(goto CONFIRM_VERSION)
 :CONFIRM_VERSION
     SET cur_version=%cur_version:~27,-1%
@@ -112,7 +112,7 @@ rem 发布指定的项目
       echo                            Start release project %project_id%
       echo *******************************************************************************************
       echo.
-      if "%project_id%"=="SMB Main" (
+      if "%project_id%"=="Core Main" (
           ECHO window.SMB_CORE_VERSION = '%main_version%%version%'>%release_root_path%version.js
       )
     )
@@ -139,7 +139,7 @@ rem 发布指定的项目
   ECHO Copy Version.js
   copy %release_root_path%version.js %cdn_common_path%js\version.js
 
-  if "%project_id%"=="SMB Main" (
+  if "%project_id%"=="Core Main" (
       rem 删除help目录
       ECHO.
       ECHO Removing help folder...
@@ -169,20 +169,20 @@ rem 发布指定的项目
     GOTO RETURNMENU
   ) else if %release_all_flag%==1 (
     set release_all_flag=2
-    GOTO ReleaseSMBMain
+    GOTO ReleaseCoreMain
   ) else if %release_all_flag%==2 (
     set release_all_flag=0
     GOTO MENU
   )
   
 
-rem 发布SMB Login站点
-:ReleaseSMBLogin
+rem 发布CN Login站点
+:ReleaseCNLogin
   set default_path=
-  set project_id=SMB Login
+  set project_id=CN Login
   if "%release_all_use_default_path%"=="n" (
     echo *Input %project_id% Project Path*
-    echo Default %project_id% project path = %smb_login_path%
+    echo Default %project_id% project path = %cn_path%
     set /p default_path=[Set %project_id% project path = ]:
   )
   
@@ -190,33 +190,33 @@ rem 发布SMB Login站点
     echo Use default path.
   ) else (
     echo Use input path = %default_path%
-    set smb_login_path=%default_path%
+    set cn_path=%default_path%
   )
   
-  echo Current %project_id% project path = %smb_login_path%
-  set dist_path=%smb_login_path%\dist\
-  set project_name=cn
+  echo Current %project_id% project path = %cn_path%
+  set dist_path=%cn_path%\dist\
+  set project_name=cn login
   GOTO ReleaseProject
 
-rem 发布SMB Main站点
-:ReleaseSMBMain
+rem 发布Core Main站点
+:ReleaseCoreMain
   set default_path=
-  set project_id=SMB Main
+  set project_id=Core Main
   if "%release_all_use_default_path%"=="n" (
     echo *Input %project_id% Project Path*
-    echo Default %project_id% project path = %smb_main_path%
+    echo Default %project_id% project path = %core_path%
     set /p default_path=[Set %project_id% project path = ]:
   )
   if [%default_path%]==[] (
     echo Use default path.
   ) else (
     echo Use input path = %default_path%
-    set smb_main_path=%default_path%
+    set core_path=%default_path%
   )
   
-  echo Current %project_id% project path = %smb_main_path%
-  set dist_path=%smb_main_path%\dist\
-  set project_name=chat
+  echo Current %project_id% project path = %core_path%
+  set dist_path=%core_path%\dist\
+  set project_name=core main
   GOTO ReleaseProject
 
 :RETURNMENU
