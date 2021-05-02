@@ -1,1 +1,1 @@
-window.SMB_CORE_VERSION = '1.3.219'
+window.SMB_CORE_VERSION = '1.3.220'
